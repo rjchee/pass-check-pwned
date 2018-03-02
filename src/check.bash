@@ -43,14 +43,14 @@ cmd_check () {
       if [[ $short_output -eq 1 ]]; then
         echo "$path:$count"
       else
-        echo "$path has been pwned $count time(s)"
+        echo "$path has been pwned $count time(s)."
       fi
       all_clear=0
     fi
   done
 
-  if [[ $all_clear -eq 1 ]]; then
-    echo "None of your passwords have been pwned before."
+  if [[ $short_output -ne 1 ]] && [[ $all_clear -eq 1 ]]; then
+    echo "No pwned passwords found."
   fi
 }
 
