@@ -1,0 +1,3 @@
+check)
+  COMPREPLY+=($(compgen -W "-h --help -v --version -l --line -s --short-output" -- ${cur}))
+  _pass_complete_entries
