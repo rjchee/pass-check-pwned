@@ -3,7 +3,7 @@
 set -o pipefail
 
 SCRIPT_VERSION="1.0.0"
-CHECK_USAGE_STRING="Usage: $PROGRAM $COMMAND [--help,-h] [--version] [--line=line-number,-l line-number] [--short-output,-s] [--verbose, -v] pass-names"
+CHECK_USAGE_STRING="Usage: $PROGRAM $COMMAND [--help,-h] [--version] [--line=line-number,-l line-number] [--short-output,-s] [--verbose,-v] pass-names"
 
 check_usage () {
   echo "$CHECK_USAGE_STRING"

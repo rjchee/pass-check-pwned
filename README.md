@@ -5,7 +5,7 @@ A [pass](https://www.passwordstore.org) extension to check your passwords agains
 `pass check <password-name>` will check if the password stored in the file has ever been pwned before. If it is, the command will print how many times that password has been pwned. This script uses the Pwned Password API's k-anonymity model to check passwords, so it will only ever send the first 5 characters of your passwords' SHA-1 hash over the network.
 
 ```
-Usage: pass check [--help,-h] [--version] [--line=line-number,-l line-number] [--short-output,-s] pass-names
+Usage: pass check [--help,-h] [--version] [--line=line-number,-l line-number] [--short-output,-s] [--verbose,-v] pass-names
 ```
 
 ## Examples
