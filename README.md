@@ -38,7 +38,7 @@ my-bad-password:3303003
 ```
 
 ## Installation
-1. Add `src/check.sh` to `~/.password-store/.extensions/`.
+1. Add `src/check.bash` to `~/.password-store/.extensions/`.
 2. Set `PASSWORD_STORE_ENABLE_EXTENSIONS=true` to allow extensions to be run from the `.extensions` directory.
 3. If you want tab completion for `pass check`, you can edit `pass`'s completion file to contain the case in `src/bash-completion-snippet`. For bash on Ubuntu 16.04, this might be located in `/usr/share/bash-completion/completions/pass`.
 
