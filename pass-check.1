@@ -1,0 +1,150 @@
+.TH pass-check 1 "January 2022" "pass-check"
+
+.SH NAME
+pass-check \- A \fBpass\fP(1) extension that checks your passwords to see if they've been found in past breaches via Troy Hunt's Have I Been Pwned (HIBP) API.
+
+.SH SYNOPSIS
+\fBpass check\fP [options] \fI[pass-names...]\fP
+
+.SH DESCRIPTION
+\fBpass check\fP uses the HIBP API to check if your passwords have been found
+in past data breaches. The HIBP API uses a K-anonymity scheme to protect the
+privacy of your passwords. Specifically, this extension will take the SHA-1
+hash of your password, send the first 5 characters of this hash to the API, and
+the API will return all hashes in its database with the given prefix. This
+extension will then check if your password's hash appears in any of these
+results.
+
+For more information about the HIBP API, refer to https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange.
+
+By default \fBpass check\fP will check every password in your store against the
+API. The names of the passwords can also be passed in to check a specific set
+of passwords.
+
+.SH COMMAND
+.TP
+\fBpass check\fP [ \fI--line-number=<line-number>\fP, \fI-l <line-number>\fP ]
+     [\fI--short-output\fP, \fI-s\fP] [ \fI--verbose\fP, \fI-v\fP ]
+     [ \fI--help\fP, \fI-h\fP ] [ \fI--version ] \fIpass-names...\fP
+
+Check the given passwords and prints the number of times they've been breached.
+
+.I pass-names
+refer to password store path(s). If none are given, all passwords in the store
+are checked.
+
+A line number in the password file (1-indexed) can be specified using the
+\fI--line-number\fP or \fI-l\fP option.
+
+By default, any positive results are reported in a human-readable format. If
+\fI--short-output\fP or \fI-s\fP is specified, the results are reported in a
+terse, easily parsable format. <password-name>:<num-breaches>
+
+If \fI--verbose\fP or \fI-v\fP is specified, more detailed messages about what
+this extension is doing will be printed to stderr.
+
+If \fI--version\fP is specified, the version number of this script is printed.
+
+If \fI--help\fP or \fI-h\fP is specified, a help message is displayed.
+
+.SH OPTIONS
+
+.TP
+\fB\-l <line-number>\fB, \-\-line-number=<line-number>\fR
+Check the specified line in the password file (1-indexed).
+
+.TP
+\fB\-s\fB, \-\-short-output\fR
+Report breaches in <password-name>:<num-breaches> format. If a password has not
+been breached before, nothing will be printed for that password.
+
+.TP
+\fB\-v\fB, \-\-verbose\fR
+Print detailed messages about what the extension is doing to stderr.
+
+.TP
+\fB\-V\fB, \-\-version\fR
+Show version information
+
+.TP
+\fB\-h\fB, \-\-help\fR
+Show usage message.
+
+
+.SH EXAMPLES
+.TP
+Check Social/twitter.com when it has been pwned before.
+.B zx2c4@laptop ~ $ pass check Social/twitter.com
+.br
+Social/twitter.com has been pwned 1 time(s).
+
+.TP
+Check Social/twitter.com when it has not been pwned before.
+.B zx2c4@laptop ~ $ pass check Social/twitter.com
+.br
+No pwned passwords found.
+
+.TP
+Check the second line in Social/twitter.com
+.B zx2c4@laptop ~ $ pass check -l 2 Social/twitter.com
+Social/twitter.com has been pwned 1 time(s).
+
+.TP
+Check all of your passwords
+.B zx2c4@laptop ~ $ pass check
+.br
+Business/a-silly-business-site.com has been pwned 12 time(s).
+.br
+Business/other-business-site.com has been pwned 5 time(s).
+.br
+Social/twitter.com has been pwned 1 time(s).
+
+.TP
+Use short outputs
+.B zx2c4@laptop ~ $ pass check -s Email/nonpwnedemail.com Social/twitter.com
+.br
+Social/twitter.com:1
+
+.TP
+Verbose outputs
+.B zx2c4@laptop ~ $ pass check -v
+.br
+Checking Business/a-sillly-business-site.com...
+.br
+Business/a-silly-business-site.com has been pwned 12 time(s).
+.br
+Checking Business/another-business-site.com...
+.br
+Business/another-business-site.com has been pwned 5 time(s).
+.br
+Checking Email/nonpwnedemail.com...
+.br
+Checking Social/twitter.com...
+.br
+Social/twitter.com has been pwned 1 time(s).
+
+
+.SH SEE ALSO
+.BR pass(1),
+
+
+.SH AUTHORS
+.B pass check
+was written by
+.MT rjchee@gmail.com
+Raymond Chee
+.ME .
+
+.SH COPYING
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.

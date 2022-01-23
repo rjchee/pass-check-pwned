@@ -1,0 +1,6 @@
+PASSWORD_STORE_EXTENSION_COMMANDS+=(check)
+
+__password_store_extension_complete_check() {
+	COMPREPLY+=($(compgen -W "-h --help -v --version -l --line -s --short-output" -- ${cur}))
+	_pass_complete_entries 1
+}
